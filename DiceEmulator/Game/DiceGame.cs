@@ -79,7 +79,7 @@ public class DiceGame
         
         private string GetUserInput()
         {
-            return Console.ReadLine()?.Trim().ToUpper();
+            return Console.ReadLine()?.Trim().ToUpper() ?? throw new InvalidOperationException();
         }
         
         private void HandleSpecialInputs(string input, RandomNumberGenerator randomNumber)
@@ -163,7 +163,7 @@ public class DiceGame
 
         private string GetPlayerInput()
         {
-            return Console.ReadLine()?.Trim().ToUpper();
+            return Console.ReadLine()?.Trim().ToUpper() ?? throw new InvalidOperationException();
         }
 
         private void HandleSpecialInputs(string input)
@@ -294,14 +294,12 @@ public class DiceGame
             Console.WriteLine("Add your number modulo 6.");
         }
 
-        private void DisplayOptionsMenu()
+        private void DisplayOptionsMenu(int maxValue = 5)
         {
-            Console.WriteLine("0 - 0");
-            Console.WriteLine("1 - 1");
-            Console.WriteLine("2 - 2");
-            Console.WriteLine("3 - 3");
-            Console.WriteLine("4 - 4");
-            Console.WriteLine("5 - 5");
+            for (int i = 0; i <= maxValue; i++)
+            {
+                Console.WriteLine($"{i} - {i}");
+            }
             DisplaySpecialCommands();
         }
 
@@ -318,7 +316,7 @@ public class DiceGame
 
         private string GetUserRollInput()
         {
-            return Console.ReadLine()?.Trim().ToUpper();
+            return Console.ReadLine()?.Trim().ToUpper() ?? throw new InvalidOperationException();
         }
         
         private void HandleSpecialInputs(string input, Dice dice, string owner)
