@@ -9,32 +9,28 @@ public class ProbabilityTableGenerator
     {
         var table = new StringBuilder();
         int diceCount = dice.Count;
-
-        // Calculate column widths
+        
         int[] columnWidths = new int[diceCount + 1];
         columnWidths[0] = "Dice \\ vs >".Length;
         for (int i = 0; i < diceCount; i++)
         {
             columnWidths[i + 1] = dice[i].ToString().Length;
         }
-
-        // Header
+        
         table.Append("Dice \\ vs >".PadRight(columnWidths[0]));
         for (int i = 0; i < diceCount; i++)
         {
             table.Append(" | " + dice[i].ToString().PadRight(columnWidths[i + 1]));
         }
         table.AppendLine();
-
-        // Separator
+        
         table.Append(new string('-', columnWidths[0]));
         for (int i = 0; i < diceCount; i++)
         {
             table.Append("-+-" + new string('-', columnWidths[i + 1]));
         }
         table.AppendLine();
-
-        // Rows
+        
         for (int i = 0; i < diceCount; i++)
         {
             table.Append(dice[i].ToString().PadRight(columnWidths[0]));

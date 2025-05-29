@@ -17,17 +17,30 @@ public class DiceGame
 
         public void Play()
         {
+            StartMessage();
+            Console.WriteLine();
+            DetermineFirstMove();
+            SelectDice();
+            PlayRound();
+        }
+
+        private void StartMessage()
+        {
             Console.WriteLine("Welcome to the Non-Transitive Dice Game!");
             Console.WriteLine("Available dice:");
             for (int i = 0; i < _dice.Count; i++)
             {
                 Console.WriteLine($"{i} - {_dice[i]}");
             }
-            Console.WriteLine();
+        }
 
-            DetermineFirstMove();
-            SelectDice();
-            PlayRound();
+        private void ChooseSelectionMessage()
+        {
+            Console.WriteLine("0 - 0");
+            Console.WriteLine("1 - 1");
+            Console.WriteLine("X - exit");
+            Console.WriteLine("? - help");
+            Console.Write("Your selection: "); 
         }
 
         private void DetermineFirstMove()
@@ -36,11 +49,7 @@ public class DiceGame
             var fairRandom = new FairRandomGenerator(0, 1);
             Console.WriteLine($"I selected a random value in the range 0..1 (HMAC={fairRandom.GetHmac()}).");
             Console.WriteLine("Try to guess my selection.");
-            Console.WriteLine("0 - 0");
-            Console.WriteLine("1 - 1");
-            Console.WriteLine("X - exit");
-            Console.WriteLine("? - help");
-            Console.Write("Your selection: ");
+            ChooseSelectionMessage();
 
             string input = Console.ReadLine()?.Trim().ToUpper();
             if (input == "X") Environment.Exit(0);
@@ -188,12 +197,9 @@ public class DiceGame
 
         private void ShowHelp()
         {
-            Console.WriteLine();
-            Console.WriteLine("HELP:");
-            Console.WriteLine("This is a non-transitive dice game where different dice can beat each other in a non-transitive way.");
+            Console.WriteLine("\nHelp: \nThis is a non-transitive dice game where different dice can beat each other in a non-transitive way.");
             Console.WriteLine("The game uses cryptographically secure fair random number generation to ensure neither player can cheat.");
-            Console.WriteLine();
-            Console.WriteLine("Here are the probabilities of each dice beating another:");
+            Console.WriteLine("\nHere are the probabilities of each dice beating another:");
             Console.WriteLine(ProbabilityTableGenerator.GenerateProbabilityTable(_dice));
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();

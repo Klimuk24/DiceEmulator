@@ -11,7 +11,7 @@ public class FairRandomGenerator
     {
         if (minValue >= maxValue) throw new ArgumentException("minValue must be less than maxValue");
 
-        using var rng = System.Security.Cryptography.RandomNumberGenerator.Create();
+        using var rng = RandomNumberGenerator.Create();
         _key = new byte[32]; 
         rng.GetBytes(_key);
 
@@ -29,7 +29,7 @@ public class FairRandomGenerator
         do
         {
             randomBytes = new byte[4];
-            using var rng = System.Security.Cryptography.RandomNumberGenerator.Create();
+            using var rng = RandomNumberGenerator.Create();
             rng.GetBytes(randomBytes);
             randomValue = BitConverter.ToUInt32(randomBytes, 0);
         } while (randomValue > uint.MaxValue - (uint.MaxValue % range));
